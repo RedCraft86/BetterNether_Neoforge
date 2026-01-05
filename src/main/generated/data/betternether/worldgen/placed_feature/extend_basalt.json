@@ -1,0 +1,35 @@
+{
+  "feature": {
+    "type": "minecraft:simple_block",
+    "config": {
+      "to_place": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:basalt",
+          "Properties": {
+            "axis": "y"
+          }
+        }
+      }
+    }
+  },
+  "placement": [
+    {
+      "type": "wover:offset",
+      "blocks": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "type": "wover:extend",
+      "direction": "down",
+      "length": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 3,
+        "min_inclusive": 1
+      }
+    }
+  ]
+}

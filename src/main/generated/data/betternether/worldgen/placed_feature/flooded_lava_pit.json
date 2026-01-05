@@ -1,0 +1,31 @@
+{
+  "feature": {
+    "type": "wover:sequence",
+    "config": {
+      "features": [
+        "betternether:extend_basalt",
+        "betternether:flooded_lava_pit_surface",
+        "betternether:mark"
+      ]
+    }
+  },
+  "placement": [
+    {
+      "type": "wover:all"
+    },
+    {
+      "type": "wover:every_layer"
+    },
+    {
+      "type": "wover:offset",
+      "blocks": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

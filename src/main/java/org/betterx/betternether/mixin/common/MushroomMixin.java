@@ -1,0 +1,58 @@
+package org.betterx.betternether.mixin.common;
+
+import org.betterx.betternether.BlocksHelper;
+import org.betterx.betternether.registry.features.configured.NetherTrees;
+import org.betterx.wover.state.api.WorldState;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MushroomBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin(value = MushroomBlock.class, remap = false)
+public abstract class MushroomMixin {
+
+    @Inject(
+            method = "canSurvive",
+            at = @At("RETURN"),
+            cancellable = true,
+            remap = false
+    )
+    private void canStay(BlockState state, LevelReader world, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
+        if (BlocksHelper.isNetherMycelium(world.getBlockState(pos.below())))
+            info.setReturnValue(true);
+    }
+
+    @Inject(
+            method = "performBonemeal",
+            at = @At(value = "HEAD"),
+            cancellable = true,
+            remap = false
+    )
+    private void growStructure(
+            ServerLevel world,
+            RandomSource random,
+            BlockPos pos,
+            BlockState state,
+            CallbackInfo info
+    ) {
+        if (BlocksHelper.isNetherMycelium(world.getBlockState(pos.below()))) {
+            if (state.getBlock() == Blocks.RED_MUSHROOM) {
+                NetherTrees.PATCH_BIG_RED_MUSHROOM.placeInWorld(WorldState.registryAccess(), world, pos, random);
+                info.cancel();
+            } else if (state.getBlock() == Blocks.BROWN_MUSHROOM) {
+                NetherTrees.PATCH_BIG_BROWN_MUSHROOM.placeInWorld(WorldState.registryAccess(), world, pos, random);
+                info.cancel();
+            }
+        }
+    }
+}

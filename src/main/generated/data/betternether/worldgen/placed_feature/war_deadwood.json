@@ -1,0 +1,86 @@
+{
+  "feature": {
+    "type": "wover:template",
+    "config": {
+      "structures": {
+        "items": [
+          {
+            "value": {
+              "location": "betternether:trees/wart_root_01",
+              "offset_y": 0
+            },
+            "weight": 1.0
+          },
+          {
+            "value": {
+              "location": "betternether:trees/wart_root_02",
+              "offset_y": 0
+            },
+            "weight": 1.0
+          },
+          {
+            "value": {
+              "location": "betternether:trees/wart_root_03",
+              "offset_y": -1
+            },
+            "weight": 1.0
+          },
+          {
+            "value": {
+              "location": "betternether:trees/wart_fallen_log",
+              "offset_y": 0
+            },
+            "weight": 1.0
+          }
+        ]
+      }
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "below_top": 4
+        },
+        "min_inclusive": {
+          "above_bottom": 4
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 8
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 2
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:air"
+      }
+    },
+    {
+      "type": "wover:is",
+      "offset": [
+        0,
+        -1,
+        0
+      ],
+      "predicate": {
+        "type": "minecraft:matching_block_tag",
+        "tag": "wover:surfaces/nether/terrain"
+      }
+    }
+  ]
+}

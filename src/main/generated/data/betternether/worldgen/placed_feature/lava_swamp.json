@@ -1,0 +1,50 @@
+{
+  "feature": "betternether:lava_pit",
+  "placement": [
+    {
+      "type": "wover:all"
+    },
+    {
+      "type": "wover:every_layer"
+    },
+    {
+      "type": "wover:offset",
+      "blocks": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "wover:noise_filter",
+      "min_noise_level": 0.10000000149011612,
+      "noise": "minecraft:gravel",
+      "scale_xz": 20.0,
+      "scale_y": 10.0
+    },
+    {
+      "type": "wover:is_basin",
+      "predicate": {
+        "type": "minecraft:any_of",
+        "predicates": [
+          {
+            "type": "minecraft:any_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_block_tag",
+                "tag": "wover:surfaces/terrain"
+              },
+              {
+                "type": "minecraft:matching_fluids",
+                "fluids": "minecraft:lava"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

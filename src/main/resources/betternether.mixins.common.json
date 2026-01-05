@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "package": "org.betterx.betternether.mixin.common",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "betternether.refmap.json",
+  "mixins": [
+    "AbstractFurnaceBlockEntityMixin",
+    "BlockAgeProcessorMixin",
+    "BlockBehaviourAccessor",
+    "BlockBehaviourMixin",
+    "BrewingRecipeRegistryMixin",
+    "CraftingScreenHandlerMixin",
+    "DeltaFeatureMixin",
+    "LightningRodBlockMixin",
+    "LiquidBlockMixin",
+    "LootTableBuilderAccessor",
+    "MapMixin",
+    "MapStateMixin",
+    "MushroomMixin",
+    "NetherWartMixin",
+    "PlayerEntityMixin",
+    "PortalShapeMixin",
+    "RecipeManagerMixin",
+    "obsidian_breaker.PlayerMixin",
+    "piglin.PiglinAiMixin",
+    "piglin.PiglinBruteMixin",
+    "piglin.PiglinMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

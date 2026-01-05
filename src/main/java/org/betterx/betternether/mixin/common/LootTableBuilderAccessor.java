@@ -1,0 +1,18 @@
+package org.betterx.betternether.mixin.common;
+
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+
+import com.google.common.collect.ImmutableList;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
+
+@Mixin(value = LootTable.Builder.class, remap = false)
+public interface LootTableBuilderAccessor {
+    @Accessor("pools")
+    ImmutableList.Builder<LootPool> getPools();
+
+    @Accessor("functions")
+    ImmutableList.Builder<LootItemFunction> getFunctions();
+}

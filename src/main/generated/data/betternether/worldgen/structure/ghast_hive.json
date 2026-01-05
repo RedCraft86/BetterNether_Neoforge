@@ -1,0 +1,18 @@
+{
+  "type": "betternether:ghast_hive",
+  "biomes": "#betternether:has_structure/ghast_hive",
+  "configs": {
+    "items": [
+      {
+        "value": {
+          "location": "betternether:ghast_hive",
+          "offset_y": 0
+        },
+        "weight": 1.0
+      }
+    ]
+  },
+  "placement": "nether_ceil",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

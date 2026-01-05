@@ -1,0 +1,32 @@
+package org.betterx.betternether.mixin.common;
+
+import org.betterx.betternether.recipes.BNRecipeManager;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+
+import net.neoforged.fml.ModList;
+
+import com.google.gson.JsonObject;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin(value = RecipeManager.class, remap = false)
+public class RecipeManagerMixin {
+    @Inject(method = "fromJson", at = @At(value = "HEAD"), cancellable = true)
+    private static void be_checkMissing(
+            ResourceLocation id,
+            JsonObject jsonObject,
+            HolderLookup.Provider provider,
+            CallbackInfoReturnable<RecipeHolder<?>> info
+    ) {
+        if (id.getNamespace().equals("techreborn") && !ModList.get().isLoaded("techreborn")) {
+            info.setReturnValue(new RecipeHolder<>(id, BNRecipeManager.makeEmptyRecipe(id)));
+            info.cancel();
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:mycelium",
+    "betternether:nether_mycelium",
+    {
+      "id": "#wover:surfaces/nether/mycelium",
+      "required": false
+    }
+  ]
+}

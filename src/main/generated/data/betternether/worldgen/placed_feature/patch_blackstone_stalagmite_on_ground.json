@@ -1,0 +1,94 @@
+{
+  "feature": {
+    "type": "wover:sequence",
+    "config": {
+      "features": [
+        "betternether:terracotta_clump",
+        {
+          "feature": {
+            "type": "minecraft:random_patch",
+            "config": {
+              "feature": {
+                "feature": {
+                  "type": "wover:pillar",
+                  "config": {
+                    "allowed_placement": {
+                      "type": "minecraft:matching_blocks",
+                      "blocks": "minecraft:air"
+                    },
+                    "direction": "up",
+                    "max_height": {
+                      "type": "minecraft:biased_to_bottom",
+                      "max_inclusive": 8,
+                      "min_inclusive": 3
+                    },
+                    "min_height": 0,
+                    "state": {
+                      "type": "minecraft:simple_state_provider",
+                      "state": {
+                        "Name": "betternether:blackstone_stalactite",
+                        "Properties": {
+                          "size": "0"
+                        }
+                      }
+                    },
+                    "transform": "size_decrease"
+                  }
+                },
+                "placement": [
+                  {
+                    "type": "wover:is",
+                    "offset": [
+                      0,
+                      -1,
+                      0
+                    ],
+                    "predicate": {
+                      "type": "minecraft:matching_blocks",
+                      "blocks": [
+                        "minecraft:black_glazed_terracotta",
+                        "minecraft:basalt"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "tries": 96,
+              "xz_spread": 7,
+              "y_spread": 3
+            }
+          },
+          "placement": []
+        }
+      ]
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "below_top": 4
+        },
+        "min_inclusive": {
+          "above_bottom": 4
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 1
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 2
+    }
+  ]
+}

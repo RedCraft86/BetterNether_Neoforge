@@ -1,0 +1,92 @@
+package org.betterx.betternether.blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+
+import org.betterx.bclib.behaviours.interfaces.BehaviourStone;
+import org.betterx.betternether.blockentities.BNBrewingStandBlockEntity;
+import org.betterx.betternether.client.IRenderTypeable;
+import org.betterx.betternether.registry.BlockEntitiesRegistry;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BrewingStandBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+
+
+public class BNBrewingStand extends BrewingStandBlock implements IRenderTypeable, BehaviourStone {
+    public BNBrewingStand() {
+        super(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_BRICKS)
+                                 .strength(0.5F, 0.5F)
+                                 .lightLevel(state -> 1)
+                                 .noOcclusion());
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+            Level world,
+            BlockState state,
+            BlockEntityType<T> type
+    ) {
+        return world.isClientSide
+                ? null
+                : createTickerHelper(type, BlockEntitiesRegistry.NETHER_BREWING_STAND, BNBrewingStandBlockEntity::tick);
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new BNBrewingStandBlockEntity(blockPos, blockState);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(
+            ItemStack itemStack,
+            BlockState state,
+            Level world,
+            BlockPos pos,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult hit
+    ) {
+        if (world.isClientSide) {
+            return ItemInteractionResult.SUCCESS;
+        } else {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof BNBrewingStandBlockEntity) {
+                player.openMenu((BNBrewingStandBlockEntity) blockEntity);
+                player.awardStat(Stats.INTERACT_WITH_BREWINGSTAND);
+            }
+
+            return ItemInteractionResult.SUCCESS;
+        }
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean notify) {
+        if (!state.is(newState.getBlock())) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof BNBrewingStandBlockEntity bn) {
+                Containers.dropContents(world, pos, bn);
+            }
+
+            super.onRemove(state, world, pos, newState, notify);
+        }
+    }
+
+    @Override
+    public BNRenderLayer getRenderLayer() {
+        return BNRenderLayer.CUTOUT;
+    }
+}
+
+
+
