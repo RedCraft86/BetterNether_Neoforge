@@ -402,6 +402,8 @@ tasks.named("compileJava") {
 tasks.matching { it.name == "runData" }.configureEach {
     dependsOn(tasks.named("fixMixinRefmap"))
     finalizedBy(tasks.named("syncGeneratedResources"))
+    // Datagen runs against named classes; disable refmap remapping to avoid obf targets.
+    systemProperty "mixin.env.disableRefMap", "true"
 }
 
 tasks.matching { it.name == "createMinecraftArtifacts" }.configureEach {

@@ -94,7 +94,12 @@ public class NetherReedMaterial extends RoofMaterial<NetherReedMaterial> {
 
     @Override
     public BoatTypeOverride supplyBoatType() {
-        // лодка отключена до появления ассетов
-        return super.supplyBoatType();
+        // Nether reed uses the raft model layout.
+        return BoatTypeOverride.create(
+                C,
+                getBaseName(),
+                getBlock(WoodSlots.PLANKS),
+                true
+        );
     }
 }
