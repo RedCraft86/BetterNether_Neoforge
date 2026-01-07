@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -95,19 +94,6 @@ public class BlocksHelper {
         boolean classMatch = state.getBlock() instanceof org.betterx.betternether.blocks.BlockTerrain;
 
         boolean result = terrain || netherrack || stones || soul || mycelium || nylium || classMatch;
-
-        BetterNether.C.LOG.info(
-                "isNetherGround {} -> {} (terrain={}, netherrack={}, stones={}, soul={}, mycelium={}, nylium={}, classMatch={})",
-                net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(state.getBlock()),
-                result,
-                terrain,
-                netherrack,
-                stones,
-                soul,
-                mycelium,
-                nylium,
-                classMatch
-        );
 
         return result;
     }

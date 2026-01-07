@@ -38,6 +38,9 @@ public class BetterNether {
 
     public BetterNether(IEventBus modBus) {
         C.registerDatapackListener(modBus);
+        // Ensure registries are initialized before RegisterEvent listeners run.
+        NetherBlocks.getBlockRegistry();
+        NetherItems.getItemRegistry();
         modBus.addListener(SoundsRegistry::register);
         modBus.addListener(NetherEnchantments::register);
         modBus.addListener(RegisterEvent.class, NetherEntities::onRegister);
