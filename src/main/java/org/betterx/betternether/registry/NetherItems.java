@@ -366,9 +366,7 @@ public class NetherItems {
         HOOK_MUSHROOM_COOKED = registerFood("hook_mushroom_cooked", 4, 0.4F);
 
         CINCINNASITE = registerItem("cincinnasite", new Item(defaultSettings()));
-        CINCINNASITE_INGOT = registerItem("cincinnasite_ingot", new Item(defaultSettings()),
-                CommonItemTags.IRON_INGOTS
-        );
+        CINCINNASITE_INGOT = registerItem("cincinnasite_ingot", new Item(defaultSettings()));
         NETHER_RUBY = registerItem("nether_ruby", new Item(defaultSettings()));
 
         CINCINNASITE_SET = new NetherSet(
