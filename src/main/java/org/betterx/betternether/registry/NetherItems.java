@@ -342,6 +342,9 @@ public class NetherItems {
         if (itemsRegistered) return;
         itemsRegistered = true;
 
+        // Templates must be initialized before tiers/sets so smithing recipes are generated.
+        registerSmithingTemplates();
+
         BLACK_APPLE = registerItem("black_apple", new ItemBlackApple());
 
         STALAGNATE_BOWL = registerItem("stalagnate_bowl", new ItemBowlFood(null, FoodShape.NONE));
@@ -448,8 +451,6 @@ public class NetherItems {
         AGAVE_LEAF = registerItem("agave_leaf", new Item(defaultSettings()));
         AGAVE_MEDICINE = registerMedicine("agave_medicine", 40, 2, true);
         HERBAL_MEDICINE = registerMedicine("herbal_medicine", 10, 5, true);
-
-        registerSmithingTemplates();
 
         if (BCLib.isDevEnvironment()) {
             BetterNether.C.log.warn("Generating Debug Helpers");
