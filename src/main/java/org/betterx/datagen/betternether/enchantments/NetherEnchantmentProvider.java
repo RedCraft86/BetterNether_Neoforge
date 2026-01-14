@@ -12,6 +12,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -33,6 +34,10 @@ public class NetherEnchantmentProvider extends WoverEnchantmentProvider {
     protected void bootstrap(BootstrapContext<Enchantment> context) {
         final HolderGetter<Item> itemGetter = context.lookup(Registries.ITEM);
         final HolderGetter<DamageType> damageGetter = context.lookup(Registries.DAMAGE_TYPE);
+        final HolderGetter<Attribute> attributeGetter = context.lookup(Registries.ATTRIBUTE);
+        final var obsidianBlockBreakSpeed = attributeGetter.getOrThrow(
+                NetherEnchantments.OBSIDIAN_BLOCK_BREAK_SPEED_KEY
+        );
 
         NetherEnchantments.RUBY_FIRE.register(context, Enchantment
                 .enchantment(
@@ -85,8 +90,8 @@ public class NetherEnchantmentProvider extends WoverEnchantmentProvider {
                 .withEffect(
                         EnchantmentEffectComponents.ATTRIBUTES,
                         new EnchantmentAttributeEffect(
-                                NetherEnchantments.OBSIDIAN_BLOCK_BREAK_SPEED.unwrapKey().orElseThrow().location(),
-                                NetherEnchantments.OBSIDIAN_BLOCK_BREAK_SPEED,
+                                NetherEnchantments.OBSIDIAN_BLOCK_BREAK_SPEED_KEY.location(),
+                                obsidianBlockBreakSpeed,
                                 new LevelBasedValue.Lookup(List.of(6f, 12f, 18f), new LevelBasedValue.LevelsSquared(9.0F)),
                                 AttributeModifier.Operation.ADD_VALUE
                         )

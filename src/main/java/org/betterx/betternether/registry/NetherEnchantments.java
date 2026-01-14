@@ -23,18 +23,30 @@ public class NetherEnchantments {
             Registries.ATTRIBUTE,
             BetterNether.C.mk("player.obsidian_block_break_speed")
     );
-    public static Holder<Attribute> OBSIDIAN_BLOCK_BREAK_SPEED;
+    public static final Attribute OBSIDIAN_BLOCK_BREAK_SPEED_ATTRIBUTE = new RangedAttribute(
+            "attribute.name.player.bn_obsidian_block_break_speed",
+            1.0,
+            1.0f,
+            100.0f
+    ).setSyncable(true);
+    public static final Holder<Attribute> OBSIDIAN_BLOCK_BREAK_SPEED = createAttributeHolder(
+            OBSIDIAN_BLOCK_BREAK_SPEED_ATTRIBUTE
+    );
+
+    private static Holder<Attribute> createAttributeHolder(Attribute attribute) {
+        try {
+            return net.minecraft.core.registries.BuiltInRegistries.ATTRIBUTE.createIntrusiveHolder(attribute);
+        } catch (RuntimeException ex) {
+            return Holder.direct(attribute);
+        }
+    }
 
     public static void register(RegisterEvent event) {
         event.register(Registries.ATTRIBUTE, helper -> {
             helper.register(
                     OBSIDIAN_BLOCK_BREAK_SPEED_KEY.location(),
-                    new RangedAttribute("attribute.name.player.bn_obsidian_block_break_speed", 1.0, 1.0f, 100.0f)
-                            .setSyncable(true)
+                    OBSIDIAN_BLOCK_BREAK_SPEED_ATTRIBUTE
             );
-            OBSIDIAN_BLOCK_BREAK_SPEED = net.minecraft.core.registries.BuiltInRegistries.ATTRIBUTE
-                    .getHolder(OBSIDIAN_BLOCK_BREAK_SPEED_KEY)
-                    .orElseThrow();
         });
     }
 
