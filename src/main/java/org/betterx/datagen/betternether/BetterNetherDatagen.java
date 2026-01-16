@@ -56,13 +56,8 @@ public class BetterNetherDatagen extends WoverDataGenEntryPoint {
         globalPack.addProvider(NetherItemRecipeProvider::new);
         globalPack.addProvider(NetherCraftingRecipes::new);
         globalPack.addProvider(NetherBlockLootTableProvider::new);
-
-
-        globalPack.callOnInitializeDatapack((event, packOutput, location) -> {
-            if (location == null) {
-                event.addProvider(new NetherAdvancementDataProvider(packOutput, event.getLookupProvider()));
-            }
-        });
+        globalPack.addProvider(modCore -> (output, registries, existingFileHelper) ->
+                new NetherAdvancementDataProvider(output, registries));
 
         //Add providers for the vanilla hammers extension
         addDatapack(BetterNether.VANILLA_HAMMERS_PACK)

@@ -46,16 +46,19 @@ public class BlockGiantLucis extends HugeMushroomBlock implements AddMineableAxe
                         .withPool(LootPool.lootPool()
                                           .setRolls(ConstantValue.exactly(1.0F))
                                           // Silk touch: drop the block itself once
-                                          .add(LootItem.lootTableItem(this).when(silkTouch))
-                                          // Without silk touch: drop spores and glowstone pile
+                                          .add(LootItem.lootTableItem(this).when(silkTouch)))
+                        // Without silk touch: always drop spores and glowstone pile
+                        .withPool(LootPool.lootPool()
+                                          .setRolls(ConstantValue.exactly(1.0F))
+                                          .when(notSilk)
+                                          .when(ExplosionCondition.survivesExplosion())
                                           .add(LootItem.lootTableItem(NetherBlocks.LUCIS_SPORE)
-                                                       .when(notSilk)
-                                                       .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 1)))
-                                                       .when(ExplosionCondition.survivesExplosion()))
+                                                       .apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 1)))))
+                        .withPool(LootPool.lootPool()
+                                          .setRolls(ConstantValue.exactly(1.0F))
+                                          .when(notSilk)
+                                          .when(ExplosionCondition.survivesExplosion())
                                           .add(LootItem.lootTableItem(NetherItems.GLOWSTONE_PILE)
-                                                       .when(notSilk)
-                                                       .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 2)))
-                                                       .when(ExplosionCondition.survivesExplosion()))
-                        );
+                                                       .apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2)))));
     }
 }

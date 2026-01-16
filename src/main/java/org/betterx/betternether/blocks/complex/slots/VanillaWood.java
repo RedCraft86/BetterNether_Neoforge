@@ -18,9 +18,11 @@ public class VanillaWood extends VanillaFallback<VanillaWood> {
 
     @Override
     protected SlotMap<WoodenComplexMaterial> createMaterialSlots() {
-        // Не регистрируем дополнительную мебель для ванильных пород, чтобы избежать поздней
-        // регистрации новых блоков/предметов и проблем с intrusive holder
-        return SlotMap.of();
+        return SlotMap.of(
+                WoodSlots.TABURET,
+                WoodSlots.BAR_STOOL,
+                WoodSlots.CHAIR
+        );
     }
 
     public static VanillaWood create(String baseName, Block clothMaterial) {
@@ -30,4 +32,5 @@ public class VanillaWood extends VanillaFallback<VanillaWood> {
                 .init();
     }
 }
+
 

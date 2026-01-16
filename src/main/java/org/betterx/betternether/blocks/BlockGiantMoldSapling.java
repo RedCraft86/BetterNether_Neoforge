@@ -28,7 +28,6 @@ public class BlockGiantMoldSapling extends BlockBaseNotFull implements Bonemeala
     public BlockGiantMoldSapling() {
         super(Materials.NETHER_SAPLING
                 .mapColor(MapColor.COLOR_LIGHT_GREEN)
-                .noLootTable()
         );
         this.setRenderLayer(BNRenderLayer.CUTOUT);
     }

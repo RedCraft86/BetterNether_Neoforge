@@ -122,18 +122,15 @@ public class NetherAdvancementDataProvider extends AdvancementDataProvider {
                 .rewardXP(500)
                 .build();
 
-        ResourceLocation city = null;
-        Holder<Structure> cityHolder = NetherStructures.CITY_STRUCTURE.getHolder(structureLookup);
-        if (cityHolder != null) {
-            city = AdvancementManager.Builder
-                    .create(BetterNether.C.id("city"))
-                    .parent(enterNether)
-                    .startDisplay(NetherBlocks.CINCINNASITE_CARVED)
-                    .endDisplay()
-                    .addAtStructureCriterion("ncity", cityHolder)
-                    .requireOne()
-                    .build();
-        }
+        Holder<Structure> cityHolder = structureLookup.getOrThrow(NetherStructures.CITY_STRUCTURE.key());
+        ResourceLocation city = AdvancementManager.Builder
+                .create(BetterNether.C.id("city"))
+                .parent(enterNether)
+                .startDisplay(NetherBlocks.CINCINNASITE_CARVED)
+                .endDisplay()
+                .addAtStructureCriterion("ncity", cityHolder)
+                .requireOne()
+                .build();
 
 
         ResourceLocation rubyOre = AdvancementManager.Builder
