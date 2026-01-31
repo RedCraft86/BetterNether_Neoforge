@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "betternether.refmap.json",
   "client": [
+    "AbstractSoundInstanceAccessor",
     "LavaFluidMixin",
+    "MusicTrackerMixin",
     "PlayerArmorMixin",
     "StandArmorMixin",
     "TexturedModelDataMixin"
