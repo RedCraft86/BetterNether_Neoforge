@@ -67,7 +67,7 @@ public class MusicTrackerMixin {
                 // Fade out current music
                 volumeChanged = true;
                 bn_volume -= FADE_SPEED * TICK_DELTA;
-                nextSongDelay = random.nextInt(0, targetMusic.getMinDelay() / 2);
+                nextSongDelay = random.nextInt(0, Math.max(targetMusic.getMinDelay() / 2, 1));
                 if (bn_volume <= 0.0f) {
                     bn_thisObj.stopPlaying();
                 }
