@@ -121,20 +121,12 @@ public class OldWillowTree extends NonOverlappingFeature<NaturalTreeConfiguratio
         for (BlockPos bpos : context.BLOCKS) {
             if (!blockBox.isInside(bpos)) continue;
             if (BlocksHelper.isNetherGround(state = world.getBlockState(bpos)) || state.canBeReplaced()) {
-                if (!context.BLOCKS.contains(bpos.above()) || !context.BLOCKS.contains(bpos.below()))
-                    BlocksHelper.setWithUpdate(
-                            world,
-                            bpos,
-                            NetherBlocks.MAT_WILLOW.getBlock(WoodSlots.BARK)
-                                                   .defaultBlockState()
-                    );
-                else
-                    BlocksHelper.setWithUpdate(
-                            world,
-                            bpos,
-                            NetherBlocks.MAT_WILLOW.getBlock(WoodSlots.LOG)
-                                                   .defaultBlockState()
-                    );
+                BlocksHelper.setWithUpdate(
+                        world,
+                        bpos,
+                        NetherBlocks.MAT_WILLOW.getBlock(WoodSlots.BARK)
+                                .defaultBlockState()
+                );
 
                 if (random.nextInt(8) == 0) {
                     Block[] wallPlants = WALL_PLANTS.get();
@@ -191,7 +183,8 @@ public class OldWillowTree extends NonOverlappingFeature<NaturalTreeConfiguratio
 
     @Override
     protected boolean isStructure(BlockState state) {
-        return state.getBlock() == NetherBlocks.MAT_RUBEUS.getLog();
+        return state.getBlock() == NetherBlocks.MAT_RUBEUS.getBark()
+                || state.getBlock() == NetherBlocks.MAT_RUBEUS.getLog();
     }
 
     @Override
