@@ -4,23 +4,19 @@ import org.betterx.betternether.advancements.BNCriterion;
 import org.betterx.betternether.registry.NetherBlocks;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import com.google.common.collect.UnmodifiableIterator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = LiquidBlock.class, remap = false)
 public abstract class LiquidBlockMixin {
@@ -56,7 +52,6 @@ public abstract class LiquidBlockMixin {
     @Inject(
             method = "shouldSpreadLiquid",
             remap = false,
-            locals = LocalCapture.CAPTURE_FAILSOFT,
             cancellable = true,
             at = @At(
                     value = "INVOKE",
@@ -68,14 +63,9 @@ public abstract class LiquidBlockMixin {
             Level level,
             BlockPos blockPos,
             BlockState arg2,
-            CallbackInfoReturnable<Boolean> cir,
-            boolean bl,
-            UnmodifiableIterator var5,
-            Direction direction,
-            BlockPos blockPos2,
-            Block block
+            CallbackInfoReturnable<Boolean> cir
     ) {
-        if (block == Blocks.OBSIDIAN) {
+        if (arg2.getFluidState().isSource()) {
             final BlockState belowState = level.getBlockState(blockPos.below());
             if (belowState.is(Blocks.SOUL_SOIL) || belowState.is(Blocks.SOUL_SAND)) {
                 level.setBlockAndUpdate(blockPos, NetherBlocks.BLUE_OBSIDIAN.defaultBlockState());

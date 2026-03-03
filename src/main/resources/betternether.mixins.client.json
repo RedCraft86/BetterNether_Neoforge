@@ -2,7 +2,6 @@
   "required": true,
   "package": "org.betterx.betternether.mixin.client",
   "compatibilityLevel": "JAVA_21",
-  "refmap": "betternether.refmap.json",
   "client": [
     "AbstractSoundInstanceAccessor",
     "LavaFluidMixin",
